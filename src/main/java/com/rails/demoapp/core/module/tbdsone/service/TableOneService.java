@@ -5,4 +5,6 @@ import com.rails.demoapp.core.module.tbdsone.domain.TableOne;
 
 public interface TableOneService extends GenericService<TableOne>{
 
+	void loopThrough() throws Exception;
+	
 }

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
 import org.mockito.internal.stubbing.answers.ReturnsElementsOf;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -70,6 +71,21 @@ public class TableOneServiceImpl implements TableOneService{
 	@Override
 	public int sqlPersist(String sql) throws Exception {
 		return tableOneDao.sqlPersist(sql);
+	}
+
+	@Override
+	public void loopThrough() throws Exception {
+		System.out.println("all record count : " + tableOneDao.countAll());
+		List<TableOne> list;
+		int offset = 0;
+		int length = 2;
+		while((list = tableOneDao.findAll(offset, length)).size()>0){
+			System.out.println("loop offset : "+offset+", length : "+length);
+			for(TableOne one: list){
+				System.out.println(one.getId()+"_"+one.getCol1());
+			}
+			offset+=list.size();
+		}
 	}
 
 }
